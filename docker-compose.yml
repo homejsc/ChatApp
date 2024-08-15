@@ -1,0 +1,40 @@
+version : '3.8'
+
+services:
+  backend:
+    image: cyrill24/chat-backend:lts
+    build: 
+      context: ./back-end 
+    ports:
+      - "8080:8080"
+
+  backend-2:
+    image: cyrill24/chat-backend-2:lts
+    build: 
+      context: ./back-end
+    ports:
+      - "8082:8080"
+
+  auth-backend:
+    image: cyrill24/chat-auth-backend:lts
+    build: 
+      context: ./auth-backend
+    ports:
+      - "5000:5000"
+
+  front-end:
+    image: cyrill24/chat-client:lts
+    build:
+      context: ./front-end/hhld-front-end
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+  front-end-2:
+    image: cyrill24/chat-client2:lts
+    build:
+      context: ./front-end-2/hhld-front-end
+    ports:
+      - "3001:3000"
+    depends_on:
+      - backend
